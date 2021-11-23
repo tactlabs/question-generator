@@ -62,7 +62,7 @@ def get_key_words(context):
 
 def main():
     st.title('Question generator')
-    text = st.text_area(label = 'context', placeholder = 'Enter a paragraph')
+    text = st.text_area(label = 'context')
     if text:
         loader = st.progress(0)
         keywords = get_key_words(text)
