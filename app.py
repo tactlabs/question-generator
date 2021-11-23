@@ -6,8 +6,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 import spacy 
 import os 
 
-
-os.system('python -m spacy download en_core_web_lg ')
 mdl = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_squad_v1')
 tknizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_squad_v1')
 nlp = spacy.load("en_core_web_sm")
