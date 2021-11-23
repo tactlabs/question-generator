@@ -4,12 +4,15 @@ from transformers import T5ForConditionalGeneration, AutoTokenizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy 
+import os 
 
+
+os.system('python -m spacy download en_core_web_lg ')
+mdl = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_squad_v1')
+tknizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_squad_v1')
+nlp = spacy.load("en_core_web_sm")
 
 def get_question(sentence, answer):
-
-    mdl = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_squad_v1')
-    tknizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_squad_v1')
 
     text = "context: {} answer: {}".format(sentence,answer)
     max_len = 256
@@ -34,7 +37,6 @@ def get_question(sentence, answer):
     return Question
 
 def get_sent(context):
-    nlp = spacy.load("en_core_web_sm")
     doc = nlp(context)
     return list(doc.sents)
 
