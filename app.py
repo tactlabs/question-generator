@@ -1,10 +1,12 @@
 import streamlit as st 
+from streamlit import cli as stcli
 from sentence_transformers import SentenceTransformer
 from transformers import T5ForConditionalGeneration, AutoTokenizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy 
 import os 
+import sys
 
 mdl = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_squad_v1')
 tknizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_squad_v1')
@@ -77,4 +79,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    if st._is_running_with_streamlit:
+        main()
+    else:
+        sys.argv = ["streamlit", "run", sys.argv[0]]
+        sys.exit(stcli.main())
