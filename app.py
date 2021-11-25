@@ -8,9 +8,11 @@ import spacy
 import os 
 import sys
 
-mdl = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_squad_v1')
-tknizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_squad_v1')
-nlp = spacy.load("en_core_web_sm")
+def init():
+    global mdl, tknizer, nlp
+    mdl = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_squad_v1')
+    tknizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_squad_v1')
+    nlp = spacy.load("en_core_web_sm")
 
 def get_question(sentence, answer):
 
@@ -80,7 +82,9 @@ def main():
 
 if __name__ == '__main__':
     if st._is_running_with_streamlit:
+        init()
         main()
     else:
         sys.argv = ["streamlit", "run", sys.argv[0]]
+        init()
         sys.exit(stcli.main())
